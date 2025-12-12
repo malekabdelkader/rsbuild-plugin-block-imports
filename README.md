@@ -2,7 +2,8 @@
 # rsbuild-plugin-block-imports
 
 > Rsbuild plugin to detect and block forbidden imports in Module Federation builds.
-
+> 
+[![npm version](https://img.shields.io/npm/v/rsbuild-plugin-block-imports.svg)](https://www.npmjs.com/package/rsbuild-plugin-block-imports)
 
 ## Why?
 
