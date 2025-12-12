@@ -39,15 +39,10 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # Step 6: Determine npm tag (beta for prerelease, latest for stable)
-      - name: Set npm tag
-        id: tag
-        run: |
-          if [[ "${GITHUB_REF}" == *"-"* ]]; then
-            echo "tag=beta" >> $GITHUB_OUTPUT
-          else
-            echo "tag=latest" >> $GITHUB_OUTPUT
+      # Step 5: Build the package
+      - name: Build
+        run: pnpm build
 
-      # Step 7: Publish to npm
+      # Step 6: Publish to npm
       - name: Publish
-        run: npm publish --access public --tag ${{ steps.tag.outputs.tag }}
+        run: npm publish --access public
