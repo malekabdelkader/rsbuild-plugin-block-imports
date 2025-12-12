@@ -167,10 +167,7 @@ The `NEXTJS_FORBIDDEN_IMPORTS` export includes:
 
 If a forbidden import is present in a file but **not actually used** in the exposed components, webpack's tree-shaking algorithm will remove it from the final bundle. This means it won't cause runtime errors.
 
-However, we still report these imports to:
-- Encourage clean code
-- Prevent accidental future usage
-- Make dependencies explicit
+However, we recommend removing them to prevent accidental usage.
 
 To disable build failures and only show warnings, set `failOnError: false`.
 
