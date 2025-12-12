@@ -1,4 +1,7 @@
+
 # rsbuild-plugin-block-imports
+
+> ⚠️ **Beta Release** - This package is under active development. API may change.
 
 > Rsbuild plugin to detect and block forbidden imports in Module Federation builds.
 
