@@ -1,10 +1,12 @@
 name: Publish npm package
 
+# Trigger on tag pushes
 on:
   push:
     tags:
-      - 'v*'
+      - 'v*'  # matches v1.0.0, v1.0.0-beta.1, etc.
 
+# Required for OIDC
 permissions:
   id-token: write
   contents: read
@@ -12,26 +14,43 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Setup Node.js with npm registry
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
+      # Step 3: Install pnpm (optional) if your scripts use it
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Install dependencies (including types)
+      # Step 4: Install dependencies (including Node types)
+      - name: Install dependencies
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
           pnpm install --save-dev @types/node
 
+      # Step 5: Build package
       - name: Build
         run: pnpm build
 
-      - name: Publish
-        run: npm publish --access public
+      # Step 6: Determine tag for npm
+      - name: Set npm tag
+        id: tag
+        run: |
+          if [[ "${GITHUB_REF}" == *"-"* ]]; then
+            echo "tag=beta" >> $GITHUB_OUTPUT
+          else
+            echo "tag=latest" >> $GITHUB_OUTPUT
+          fi
 
+      # Step 7: Publish to npm
+      - name: Publish
+        run: npm publish --access public --tag ${{ steps.tag.outputs.tag }}
