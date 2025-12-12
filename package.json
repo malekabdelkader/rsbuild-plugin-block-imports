@@ -10,7 +10,8 @@
     "nextjs",
     "imports",
     "lint",
-    "build"
+    "build",
+    "react"
   ],
   "author": "Malek Abdelkader",
   "license": "MIT",
