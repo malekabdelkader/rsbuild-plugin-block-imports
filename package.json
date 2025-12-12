@@ -1,0 +1,57 @@
+{
+  "name": "rsbuild-plugin-block-imports",
+  "version": "1.0.0",
+  "description": "Rsbuild plugin to detect and block forbidden imports in Module Federation builds",
+  "keywords": [
+    "rsbuild",
+    "rsbuild-plugin",
+    "module-federation",
+    "webpack",
+    "nextjs",
+    "imports",
+    "lint",
+    "build"
+  ],
+  "author": "Malek Abdelkader",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malekabdelkader/rsbuild-plugin-block-imports"
+  },
+  "homepage": "https://github.com/malekabdelkader/rsbuild-plugin-block-imports#readme",
+  "bugs": {
+    "url": "https://github.com/malekabdelkader/rsbuild-plugin-block-imports/issues"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm build"
+  },
+  "peerDependencies": {
+    "@rsbuild/core": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@rsbuild/core": "^1.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
