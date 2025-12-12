@@ -12,7 +12,6 @@ permissions:
 jobs:
   publish:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -22,13 +21,17 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install dependencies (including types)
         run: |
-          npm install --save-dev @types/node   # install Node types first
-          npm install                          # install regular dependencies
+          pnpm install
+          pnpm install --save-dev @types/node
 
       - name: Build
-        run: npm run build --if-present
+        run: pnpm build
 
       - name: Publish
         run: npm publish --access public
+
