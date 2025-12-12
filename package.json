@@ -1,6 +1,6 @@
 {
   "name": "rsbuild-plugin-block-imports",
-  "version": "1.0.0",
+  "version": "1.0.0-beta.1",
   "description": "Rsbuild plugin to detect and block forbidden imports in Module Federation builds",
   "keywords": [
     "rsbuild",
