@@ -22,10 +22,13 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Build
+      - name: Install dependencies
         run: |
           npm install
-          npm run build --if-present
+          npm install --save-dev @types/node   # ✅ add Node types
+
+      - name: Build
+        run: npm run build --if-present
 
       - name: Publish
         run: npm publish --access public
