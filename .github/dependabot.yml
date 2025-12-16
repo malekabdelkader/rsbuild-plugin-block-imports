@@ -1,0 +1,16 @@
+# .github/dependabot.yml
+version: 2
+updates:
+  # Update npm dependencies
+  - package-ecosystem: "npm"        # npm ecosystem for package.json / lockfiles
+    directory: "/"                  # root of the repository
+    schedule:
+      interval: "weekly"            # check weekly for dependency updates
+    # Optional: limit the number of open PRs
+    open-pull-requests-limit: 5
+
+  # Optional: update GitHub Actions workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
