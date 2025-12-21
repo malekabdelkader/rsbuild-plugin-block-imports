@@ -1,8 +1,8 @@
 /**
- * @fileoverview Rsbuild plugin to detect and block forbidden imports in Module Federation builds.
+ * @fileoverview Rsbuild plugin to detect and block forbidden imports during build time.
  * 
- * This plugin scans source files for imports that won't work in remote environments
- * (e.g., Next.js-specific imports in a Module Federation remote) and fails the build
+ * This plugin scans source files for imports that should not be used in certain contexts
+ * (e.g., framework-specific imports in shared components) and fails the build
  * with actionable error messages.
  * 
  * @author Malek Abdelkader
@@ -65,7 +65,7 @@ export interface PluginBlockImportsOptions {
   
   /**
    * Custom header text for the error output.
-   * @default 'MODULE FEDERATION BUILD ERROR'
+   * @default 'FORBIDDEN IMPORTS DETECTED'
    */
   errorHeader?: string;
   
@@ -108,8 +108,8 @@ const ANSI_COLORS = {
 } as const;
 
 /**
- * Default forbidden imports for Next.js projects using Module Federation.
- * These imports rely on Next.js internals and won't work in remote environments.
+ * Default forbidden imports for Next.js projects.
+ * These imports rely on Next.js internals and won't work outside of Next.js.
  */
 export const NEXTJS_FORBIDDEN_IMPORTS: ForbiddenImport[] = [
   // Core Next.js modules
@@ -267,7 +267,7 @@ function printErrorReport(
   console.error(c.red(c.bold('  ╰─────────────────────────────────────────────────────────────╯')));
   console.error('');
   console.error(c.red(c.bold('  ✖ Forbidden imports detected in source files')));
-  console.error(c.gray('    These imports will not work in the remote environment.'));
+  console.error(c.gray('    These imports are not allowed in the current build context.'));
   console.error('');
   
   // Print each error with location
@@ -318,8 +318,8 @@ function printErrorReport(
 /**
  * Creates an Rsbuild plugin that detects and blocks forbidden imports.
  * 
- * This plugin is useful for Module Federation setups where certain imports
- * (like Next.js-specific modules) won't work in remote environments.
+ * This plugin is useful when certain imports should not be used in specific contexts,
+ * such as framework-specific modules in shared components or library code.
  * 
  * **Note:** If a forbidden import is present but not actually used, webpack's
  * tree-shaking algorithm will remove it from the final bundle. However, we still
@@ -365,7 +365,7 @@ export function pluginBlockImports(options: PluginBlockImportsOptions): RsbuildP
     forbiddenImports: options.forbiddenImports,
     exclude: options.exclude ?? [],
     failOnError: options.failOnError ?? true,
-    errorHeader: options.errorHeader ?? 'MODULE FEDERATION BUILD ERROR',
+    errorHeader: options.errorHeader ?? 'FORBIDDEN IMPORTS DETECTED',
     colors: options.colors ?? true,
   };
   

@@ -1,13 +1,13 @@
 
 # rsbuild-plugin-block-imports
 
-> Rsbuild plugin to detect and block forbidden imports in Module Federation builds.
+> Rsbuild plugin to detect and block forbidden imports during build time.
 > 
 [![npm version](https://img.shields.io/npm/v/rsbuild-plugin-block-imports.svg)](https://www.npmjs.com/package/rsbuild-plugin-block-imports)
 
 ## Why?
 
-When using **Module Federation** to expose React components from a Next.js application, certain imports won't work in remote environments. For example:
+Sometimes certain imports should not be used in specific contexts. For example, when using **Module Federation** to expose React components from a Next.js application, certain imports won't work in remote environments:
 
 - `next/link` - Next.js router integration
 - `next/image` - Next.js image optimization
@@ -99,7 +99,7 @@ export default defineConfig({
 | `forbiddenImports` | `ForbiddenImport[]` | **required** | Array of forbidden import patterns |
 | `exclude` | `(string \| RegExp)[]` | `[]` | Paths to exclude from checking |
 | `failOnError` | `boolean` | `true` | Whether to fail the build on errors |
-| `errorHeader` | `string` | `'MODULE FEDERATION BUILD ERROR'` | Custom header for error output |
+| `errorHeader` | `string` | `'FORBIDDEN IMPORTS DETECTED'` | Custom header for error output |
 | `colors` | `boolean` | `true` | Enable colored terminal output |
 
 ### ForbiddenImport Interface
@@ -119,11 +119,11 @@ interface ForbiddenImport {
 
 ```
   ╭─────────────────────────────────────────────────────────────╮
-  │  MODULE FEDERATION BUILD ERROR                              │
+  │  FORBIDDEN IMPORTS DETECTED                                 │
   ╰─────────────────────────────────────────────────────────────╯
 
   ✖ Forbidden imports detected in source files
-    These imports will not work in the remote environment.
+    These imports are not allowed in the current build context.
 
   /src/components/MyComponent.tsx:5:0
     ✖ Forbidden import: next/image
