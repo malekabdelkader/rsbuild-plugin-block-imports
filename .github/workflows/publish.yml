@@ -39,10 +39,8 @@ jobs:
       - name: Build
         run: pnpm build
 
-      # Step 5: Build the package
-      - name: Build
-        run: pnpm build
-
       # Step 6: Publish to npm
       - name: Publish
         run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
