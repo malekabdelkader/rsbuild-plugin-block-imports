@@ -15,7 +15,7 @@
     "rootDir": "./src",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    // tsup handles compilation, tsc only type-checks
+    // tsdown handles compilation, tsc only type-checks
     "noEmit": true
   },
   "include": ["src/**/*"],

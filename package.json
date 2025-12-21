@@ -1,6 +1,6 @@
 {
   "name": "rsbuild-plugin-block-imports",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "description": "Rsbuild plugin to detect and block forbidden imports in Module Federation builds",
   "keywords": [
     "rsbuild",
@@ -38,8 +38,8 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "build": "tsdown src/index.ts --format cjs,esm --dts --clean",
+    "dev": "tsdown src/index.ts --format cjs,esm --dts --watch",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "pnpm build"
   },
@@ -48,7 +48,7 @@
   },
   "devDependencies": {
     "@rsbuild/core": "^1.0.0",
-    "tsup": "^8.0.0",
+    "tsdown": "^0.9.0",
     "typescript": "^5.0.0"
   },
   "engines": {
